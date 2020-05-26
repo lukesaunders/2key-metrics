@@ -7,15 +7,15 @@ const { format } = fns;
 import knex from '../lib/database.mjs';
 const endpoint = 'http://prod.api.graph.plasma.2key.net/subgraphs/name/plasma';
 
-async function requestVisits({ after, dateMap = {} } = {}) {
-  console.log('fetching after', after);
+async function requestGraphData({ after, dateMap = {}, graphType } = {}) {
+  console.log('fetching after', after, 'for', graphType);
   const afterSegment = after ?
     `where:{
       _timeStamp_gt:${after}
     }` : '';
 
   const query = `{
-    visits(
+    ${graphType}(
       orderBy:_timeStamp,
       orderDirection:asc,
       first:100
@@ -26,22 +26,23 @@ async function requestVisits({ after, dateMap = {} } = {}) {
     }
   }`;
 
-  const { visits } = await request(endpoint, query);  
-  if (!visits.length) return dateMap;
+  const response = await request(endpoint, query);
+  const data = response[graphType];
+  if (!data.length) return dateMap;
 
-  for (const visit of visits) {
-    const date = new Date(visit['_timeStamp'] * 1000);
+  for (const item of data) {
+    const date = new Date(item['_timeStamp'] * 1000);
     const formattedDate = format(date, 'yyyy-MM-dd');
     if (!dateMap[formattedDate]) dateMap[formattedDate] = 0;
     dateMap[formattedDate] += 1;
   }
-  console.log(visits);
-  return await requestVisits({ after: visits[visits.length - 1]['_timeStamp'], dateMap });
+  console.log(data);
+  return await requestGraphData({ after: data[data.length - 1]['_timeStamp'], dateMap, graphType });
 };
 
-async function run() {
-  await knex('key_metrics').where({ metric_name: 'link_clickthroughs' }).del();
-  const dateMap = await requestVisits();
+async function buildMetrics({ metricName, graphType }) {
+  await knex('key_metrics').where({ metric_name: metricName }).del();
+  const dateMap = await requestGraphData({ graphType });
   console.log(dateMap);
 
   let cumulativeCount = 0;
@@ -50,13 +51,20 @@ async function run() {
     cumulativeCount += value;
     await knex('key_metrics').insert({
       date: key,
-      metric_name: 'link_clickthroughs',
+      metric_name: metricName,
       daily_count: value,
       cumulative_count: cumulativeCount,
     });  
   }
+}
+
+async function run() {
+  await buildMetrics({ metricName: 'user_registrations', graphType: 'users' });
+  await buildMetrics({ metricName: 'campaigns_created', graphType: 'campaigns' });
+  await buildMetrics({ metricName: 'link_clickthroughs', graphType: 'visits' });
 
   knex.destroy();
 }
 
 run();
+
