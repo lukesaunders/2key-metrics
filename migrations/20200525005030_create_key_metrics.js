@@ -3,7 +3,7 @@ exports.up = function(knex) {
     .createTable('key_metrics', function (table) {
        table.increments('id');
        table.text('metric_name').notNullable()
-       table.date('date').notNullable();
+       table.timestamp('date').notNullable();
        table.integer('daily_count')
        table.integer('cumulative_count')
        table.unique(['metric_name', 'date']);

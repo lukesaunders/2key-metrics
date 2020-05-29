@@ -2,7 +2,7 @@ import graphql from 'graphql-request';
 const { request } = graphql;
 
 import fns from 'date-fns';
-const { format } = fns;
+const { addDays, format } = fns;
 
 import knex from '../lib/database.mjs';
 const endpoint = 'http://prod.api.graph.plasma.2key.net/subgraphs/name/plasma';
@@ -41,8 +41,9 @@ async function requestGraphData({ after, dateMap = {}, graphType } = {}) {
 };
 
 async function buildMetrics({ metricName, graphType }) {
-  await knex('key_metrics').where({ metric_name: metricName }).del();
-  const dateMap = await requestGraphData({ graphType });
+  const latest = await knex('key_metrics').where({ metric_name: metricName }).orderBy('date', 'desc').first();
+  const after = latest ? (addDays(new Date(latest.date), 1).getTime() / 1000) : null;
+  const dateMap = await requestGraphData({ after, graphType });
   console.log(dateMap);
 
   let cumulativeCount = 0;
