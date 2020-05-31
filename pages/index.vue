@@ -15,8 +15,18 @@
         </div>
       </div>
     </section>
-    <section class="shadow-xl rounded">
-      23
+    <section class="shadow-xl rounded link_clickthroughs">
+      <div class="label">
+        Daily link clickthroughs:
+      </div>
+      <div v-if="$store.state.link_clickthroughs.loaded">
+        <LinkClickthroughChart />
+        <div class="data-source">
+          (source: <a href="http://prod.api.graph.plasma.2key.net/subgraphs/name/plasma" target="_blank">
+            Direct plasma chain data via GraphQL API
+          </a>)
+        </div>
+      </div>
     </section>
     <section class="shadow-xl rounded">
       34
@@ -27,15 +37,18 @@
 <script>
 import CurrentSupply from '../components/current_supply.vue';
 import ProjectedSupply from '../components/charts/projected_supply.vue';
+import LinkClickthroughChart from '../components/charts/link_clickthroughs.vue';
 
 export default {
   components: {
     CurrentSupply,
     ProjectedSupply,
+    LinkClickthroughChart,
   },
   // load data here
   async fetch() {
     this.$store.dispatch('issuance/loadSupply');
+    this.$store.dispatch('link_clickthroughs/load');
   },
 };
 </script>
@@ -52,24 +65,29 @@ export default {
       margin-bottom: 0;
     }
   }
+  .label {
+    color: $light-grey;
+    display: block;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .data-source {
+    font-size: 0.7rem;
+    color: $light-grey;
+    text-align: right;
+  }
   .issuance {
-    .label {
-      color: $light-grey;
-      display: block;
-      text-transform: uppercase;
-      font-size: 1rem;
-      font-weight: 700;
-    }
     .issuance-chart {
       margin-top: 2rem;
       .label {
         margin-bottom: 1rem;
       }
     }
-    .data-source {
-      font-size: 0.7rem;
-      color: $light-grey;
-      text-align: right;
+  }
+  .link_clickthroughs {
+    .label {
+      margin-bottom: 1rem;
     }
   }
 </style>

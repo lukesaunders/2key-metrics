@@ -60,8 +60,10 @@ module.exports = {
   build: {
     /*
     ** You can extend webpack config here
-    */
+    */   
+    watch: ['api', 'data'],
     extend (config, ctx) {
     }
-  }
+  },
+  serverMiddleware: ['~/api', '~/api/data']
 }
