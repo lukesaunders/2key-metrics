@@ -1,6 +1,4 @@
-const { format, subDays, subMonths } = fns;
-
-const firstYearIssuance = [
+export const firstYearIssuance = [
   ['D.D.', 18637972],
   ['1st month', 18804639],
   ['2nd month', 18971305],
@@ -15,7 +13,7 @@ const firstYearIssuance = [
   ['11th month', 82749964],
 ];
 
-const subsequentIssuance = [
+export const subsequentIssuance = [
   ['EOY 1', 89671815]
   ['EOY 2', 148771615],
   ['EOY 3', 230371615],
@@ -28,9 +26,7 @@ const subsequentIssuance = [
   ['EOY 10', 372571615],
 ];
 
-export default async function () {
-  return {
-    firstYearIssuance,
-    subsequentIssuance,
-  };
-}
+export default {
+  firstYearIssuance,
+  subsequentIssuance,
+};

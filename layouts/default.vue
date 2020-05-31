@@ -20,13 +20,11 @@ html {
 
 a {
   text-decoration: underline;
-  text-decoration-color: $brand-midwhite;
 }
 
 body {
-  background-color: $brand-beta;
-  color: white;
-  background: linear-gradient(270deg, rgb(0, 188, 111), rgb(0, 101, 60), rgb(0, 94, 56));
+  color: $dark-grey;
+  background: linear-gradient(270deg, $brand-light, $brand-mid, $brand-dark);
 }
 .container {
   padding-bottom: 10em;
