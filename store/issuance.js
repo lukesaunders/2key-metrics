@@ -6,6 +6,7 @@ export const state = () => ({
   currentSupply: null,
   firstYearIssuance,
   subsequentIssuance,
+  loaded: false,
 });
 
 export const getters = {
@@ -14,6 +15,7 @@ export const getters = {
 export const mutations = {
   setCurrentSupply(state, currentSupply) {
     state.currentSupply = currentSupply;
+    state.loaded = true;
   },
 };
 

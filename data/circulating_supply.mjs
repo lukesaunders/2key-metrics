@@ -14,7 +14,7 @@ export const firstYearIssuance = [
 ];
 
 export const subsequentIssuance = [
-  ['EOY 1', 89671815]
+  ['EOY 1', 89671815],
   ['EOY 2', 148771615],
   ['EOY 3', 230371615],
   ['EOY 4', 264571615],
