@@ -36,7 +36,7 @@ async function requestGraphData({ after, dateMap = {}, graphType } = {}) {
     if (!dateMap[formattedDate]) dateMap[formattedDate] = 0;
     dateMap[formattedDate] += 1;
   }
-  console.log(data);
+  // console.log(data);
   return await requestGraphData({ after: data[data.length - 1]['_timeStamp'], dateMap, graphType });
 };
 
