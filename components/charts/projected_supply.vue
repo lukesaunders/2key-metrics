@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import { differenceInDays, format } from 'date-fns';
+
 export default {
   data() {
     return {
@@ -15,9 +17,12 @@ export default {
   },
   computed: {
     chartOptions() {
+      const startDate = new Date('2020-05-12');
+      const nowDate = new Date();
+      const delta = differenceInDays(nowDate, startDate);
+      const plotLineValue = (delta / 365) * 12;
       const firstYearIssuance = this.$store.state.issuance.firstYearIssuance;
       const labels = firstYearIssuance.map(v => (v[0]));
-      console.log(labels);
       return {
         chart: {
           height: 200,
@@ -36,6 +41,20 @@ export default {
               return labels[this.pos];
             },
           },
+          plotLines: [{
+            color: 'rgb(85, 85, 85)',
+            width: 1,
+            value: plotLineValue,
+            dashStyle: 'dash',
+            label: {
+              text: format(nowDate, 'do MMM yyyy'),
+              style: {
+                color: 'rgb(85, 85, 85)',
+                fontSize: '80%',
+              },
+            },
+            zIndex: 6,
+          }],
         },
         yAxis: {
           title: {

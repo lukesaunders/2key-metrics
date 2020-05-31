@@ -25,7 +25,6 @@ async function refreshCurrentSupply({ axios, commit }) {
       decimals: 1,
     },
   });
-  console.log('data', data);
   commit('setCurrentSupply', data);
 }
 export const actions = {

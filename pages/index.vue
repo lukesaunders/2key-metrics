@@ -9,7 +9,7 @@
         <span class="label">First year release schedule:</span>
         <ProjectedSupply v-if="$store.state.issuance.loaded" />
         <div class="data-source">
-          (source: <a href="https://docs.google.com/spreadsheets/d/16811qzLL_R6nQ4_4Bc4Fn2gEAUITxAGDbaapDE8xS0o/edit#gid=0" target="_blank">
+          (D.D. May 12th 2020; source: <a href="https://docs.google.com/spreadsheets/d/16811qzLL_R6nQ4_4Bc4Fn2gEAUITxAGDbaapDE8xS0o/edit#gid=0" target="_blank">
             https://docs.google.com/spreadsheets/d/16811qzLL_R6nQ4_4Bc4Fn2gEAUITxAGDbaapDE8xS0o/edit#gid=0
           </a>)
         </div>
