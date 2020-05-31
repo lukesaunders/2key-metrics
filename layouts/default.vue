@@ -2,7 +2,7 @@
   <div class="container relative">
     <nuxt />
     <div class="explainer">
-      2Key Metrics is a community developed and maintained project which shows fundamental
+      2key Metrics is a community developed and maintained project which shows fundamental
       performance data sourced from 2key's Plasma chain, Ethereum chain and API in order
       to allow non-technical community members to monitor the performance of 2key.
     </div>
