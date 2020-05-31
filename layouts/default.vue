@@ -1,74 +1,59 @@
 <template>
-  <div>
-    <nav
-      class="navbar header has-shadow is-primary"
-      role="navigation"
-      aria-label="main navigation"
-    >
-      <div class="navbar-brand">
-        <a
-          class="navbar-item"
-          href="/"
-        >
-          <img
-            src="~assets/buefy.png"
-            alt="Buefy"
-            height="28"
-          >
-        </a>
-
-        <div class="navbar-burger">
-          <span />
-          <span />
-          <span />
-        </div>
-      </div>
-    </nav>
-
-    <section class="main-content columns">
-      <aside class="column is-2 section">
-        <p class="menu-label is-hidden-touch">
-          General
-        </p>
-        <ul class="menu-list">
-          <li
-            v-for="(item, key) of items"
-            :key="key"
-          >
-            <nuxt-link
-              :to="item.to"
-              exact-active-class="is-active"
-            >
-              <b-icon :icon="item.icon" /> {{ item.title }}
-            </nuxt-link>
-          </li>
-        </ul>
-      </aside>
-
-      <div class="container column is-10">
-        <nuxt />
-      </div>
-    </section>
+  <div class="container relative">
+    <nuxt />
   </div>
 </template>
 
-<script>
-export default {
-  data () {
-    return {
-      items: [
-        {
-          title: 'Home',
-          icon: 'home',
-          to: { name: 'index' }
-        },
-        {
-          title: 'Inspire',
-          icon: 'lightbulb',
-          to: { name: 'inspire' }
-        }
-      ]
-    }
-  }
+<style lang="scss">
+@import "../styles/global.scss";
+
+html {
+  font-family: 'Helvetica', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  font-size: 14px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
 }
-</script>
+
+a {
+  text-decoration: underline;
+  text-decoration-color: $brand-midwhite;
+}
+
+body {
+  background-color: $brand-beta;
+  color: white;
+  background: linear-gradient(270deg, rgb(0, 188, 111), rgb(0, 101, 60), rgb(0, 94, 56));
+}
+.container {
+  padding-bottom: 10em;
+  margin-top: 15rem;
+  margin-bottom: 15rem;
+}
+
+h1 {
+  display: block;
+  font-weight: 700;
+  font-size: 1.6rem;
+  padding-top: 30px;
+  letter-spacing: 1px;
+}
+
+h2 {
+  display: block;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+}
+</style>

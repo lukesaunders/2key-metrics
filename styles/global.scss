@@ -1,0 +1,10 @@
+/* delphi brand colours */
+$brand-alpha: #141A29; // e.g. sidebar
+$brand-beta: #181E30; // e.g. body bg
+$brand-gamma: #212A4A; // e.g. card bg
+$brand-psi: #30354B; // e.g. top bar
+
+$brand-faded: #464B5A; // e.g. input backgrounds
+$brand-midwhite: lighten($brand-faded, 40%);
+$brand-nearlywhite: lighten($brand-faded, 60%);
+$brand-dark-grey: #68686C;
