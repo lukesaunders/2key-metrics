@@ -44,6 +44,7 @@ async function buildMetrics({ metricName, graphType }) {
   const latest = await knex('key_metrics').where({ metric_name: metricName }).orderBy('date', 'desc').first();
   const after = latest ? (addDays(new Date(latest.date), 1).getTime() / 1000) : null;
   const dateMap = await requestGraphData({ after, graphType });
+  console.log(dateMap);
 
   for (let [key, value] of Object.entries(dateMap)) {
     if (key === format(new Date(), 'yyyy-MM-dd')) continue;
@@ -52,7 +53,7 @@ async function buildMetrics({ metricName, graphType }) {
       .where({ metric_name: metricName })
       .select(knex.raw(`sum(daily_count) as total`))
       .first();
-    const cumulativeCount = sum.total + value;
+    const cumulativeCount = sum.total ? parseInt(sum.total) + value : null;
     await knex('key_metrics').insert({
       date: key,
       metric_name: metricName,
