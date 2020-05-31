@@ -1,6 +1,11 @@
 <template>
   <div class="container relative">
     <nuxt />
+    <div class="explainer">
+      2Key Metrics is a community developed and maintained project which shows fundamental
+      performance data sourced from 2key's Plasma chain, Ethereum chain and API in order
+      to allow non-technical community members to monitor the performance of 2key.
+    </div>
   </div>
 </template>
 
@@ -27,7 +32,6 @@ body {
   background: linear-gradient(270deg, $brand-light, $brand-mid, $brand-dark);
 }
 .container {
-  padding-bottom: 10em;
   margin-top: 5rem;
   margin-bottom: 5rem;
 }
@@ -45,6 +49,14 @@ h2 {
   font-weight: 700;
   font-size: 1.2rem;
   letter-spacing: 1px;
+}
+
+.explainer {
+  color: white;
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: 5rem;
+  padding: 0 10rem;
 }
 
 
