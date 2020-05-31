@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="logo">
-      <img src="/2keylogo.svg" />
+      <img src="/2keylogo.svg">
       <span class="metrics">metrics</span>
     </div>
     <section class="shadow-xl rounded issuance">
