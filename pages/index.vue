@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="logo">
+      <img src="/2keylogo.svg" />
+      <span class="metrics">metrics</span>
+    </div>
     <section class="shadow-xl rounded issuance">
       <div class="currently-circulating">
         <span class="label">Current circulating supply:</span>
@@ -23,13 +27,23 @@
         <LinkClickthroughChart />
         <div class="data-source">
           (source: <a href="http://prod.api.graph.plasma.2key.net/subgraphs/name/plasma" target="_blank">
-            Direct plasma chain data via GraphQL API
+            plasma chain data via GraphQL API
           </a>)
         </div>
       </div>
     </section>
-    <section class="shadow-xl rounded">
-      34
+    <section class="shadow-xl rounded user_registrations">
+      <div class="label">
+        User registrations:
+      </div>
+      <div v-if="$store.state.user_registrations.loaded">
+        <UserRegistrationChart />
+        <div class="data-source">
+          (source: <a href="http://prod.api.graph.plasma.2key.net/subgraphs/name/plasma" target="_blank">
+            plasma chain data via GraphQL API
+          </a>)
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -38,17 +52,20 @@
 import CurrentSupply from '../components/current_supply.vue';
 import ProjectedSupply from '../components/charts/projected_supply.vue';
 import LinkClickthroughChart from '../components/charts/link_clickthroughs.vue';
+import UserRegistrationChart from '../components/charts/user_registrations.vue';
 
 export default {
   components: {
     CurrentSupply,
     ProjectedSupply,
     LinkClickthroughChart,
+    UserRegistrationChart,
   },
   // load data here
   async fetch() {
     this.$store.dispatch('issuance/loadSupply');
     this.$store.dispatch('link_clickthroughs/load');
+    this.$store.dispatch('user_registrations/load');
   },
 };
 </script>
@@ -56,6 +73,23 @@ export default {
 <style lang="scss" scoped>
   @import "../styles/global.scss";
 
+  .logo {
+    position: relative;
+    width: 180px;
+    margin: 5rem auto;
+    img {
+      height: 6rem;
+    }
+    .metrics {
+      color: white;
+      font-weight: bold;
+      font-size: 1.5rem;
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      text-shadow: 1px 1px 3px black;
+    }
+  }
   section {
     background-color: white;
     margin-bottom: 8rem;
@@ -85,7 +119,7 @@ export default {
       }
     }
   }
-  .link_clickthroughs {
+  .link_clickthroughs, .issuance, .user_registrations {
     .label {
       margin-bottom: 1rem;
     }

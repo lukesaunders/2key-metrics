@@ -28,8 +28,8 @@ body {
 }
 .container {
   padding-bottom: 10em;
-  margin-top: 15rem;
-  margin-bottom: 15rem;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
 }
 
 h1 {
